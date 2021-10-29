@@ -3,19 +3,75 @@
 //
 
 /**
- * 目的：测试 std::vector 中的元素是保存在栈上还是堆上。
- * 结果：堆上。
+ * 测试1：
+ *   目的：测试 std::vector 中的元素是保存在栈上还是堆上。
+ *   结果：堆上。
+ *
+ * 测试2：
+ *   目的：测试 std::stack 中的元素是保存在栈上还是堆上。
+ *   结果：堆上。
  */
 
 #include <iostream>
 #include <vector>
+#include <stack>
 
 class A {
 public:
     std::vector<int> nums;
 };
 
+class B {
+public:
+    std::stack<int> stack;
+};
+
+void test01();
+
+void test02();
+
+int main() {
+    test02();
+    return 0;
+}
+
+void test02() {
+    /**
+     * 测试 std::stack
+     */
+    std::stack<int> stack;
+    std::cout << sizeof(stack) << std::endl;
+
+    B b;
+    std::cout << sizeof(b) << std::endl;
+
+    b.stack.push(10);
+    std::cout << sizeof(b) << std::endl;
+
+    b.stack.push(10);
+    std::cout << sizeof(b) << std::endl;
+
+    b.stack.push(10);
+    std::cout << sizeof(b) << std::endl;
+
+    b.stack.push(10);
+    std::cout << sizeof(b) << std::endl;
+
+    /**
+        输出结果：
+        48
+        48
+        48
+        48
+        48
+        48
+     */
+}
+
 void test01() {
+    /**
+     * 测试 std::vector
+     */
     std::vector<int> v;
     std::cout << sizeof(v) << std::endl;  // 24
 
@@ -33,9 +89,4 @@ void test01() {
 
     a.nums.emplace_back(10);
     std::cout << sizeof(a) << std::endl;  // 24
-}
-
-int main() {
-    test01();
-    return 0;
 }
