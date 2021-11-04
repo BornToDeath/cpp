@@ -9,4 +9,4 @@
 | test02 | 测试空类的大小 |
 | test03 | 测试 std::ifstream 读写文件 |
 | test04 | 测试 shared_ptr 作为成员变量时的析构顺序 |
-
+| test05 | 测试 new 创建对象时的详细流程 |
