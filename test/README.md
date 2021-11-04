@@ -8,4 +8,5 @@
 | test01 | 测试 std::vector 中元素是保存在栈上还是堆上 |
 | test02 | 测试空类的大小 |
 | test03 | 测试 std::ifstream 读写文件 |
+| test04 | 测试 shared_ptr 作为成员变量时的析构顺序 |
 
