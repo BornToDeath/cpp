@@ -74,7 +74,15 @@ void test01() {
     cout << ">>> test01 end." << endl;
 }
 
+void test02() {
+    auto a = new A();
+    std::shared_ptr<A> b(a);
+
+    auto str = new std::string("123");
+    std::shared_ptr<std::string> str1(str);
+}
+
 int main() {
-    test01();
+    test02();
     return 0;
 }
