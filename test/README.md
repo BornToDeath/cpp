@@ -10,3 +10,4 @@
 | test03 | 测试 std::fstream 读写文件 |
 | test04 | 测试 shared_ptr 作为成员变量时的析构顺序 |
 | test05 | 测试 new 创建对象时的详细流程 |
+| test06 | 测试强枚举类型 enum class 的用法 |
