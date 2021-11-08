@@ -30,9 +30,18 @@ void test01();
 
 void test02();
 
+void test03();
+
 int main() {
-    test02();
+    test03();
     return 0;
+}
+
+void test03() {
+    std::string name = "lixiaoqing";
+    std::vector<char> vec(name.length(), 0);
+    memcpy(vec.data(), name.c_str(), name.length());
+    name = "fighting!";
 }
 
 void test02() {
