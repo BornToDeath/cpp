@@ -13,3 +13,4 @@
 | test06 | 测试强枚举类型 enum class 的用法 |
 | test07 | 学习模板特例化 |
 | test08 | 测试 std::string 的拷贝构造和赋值构造的效率 |
+| test09 | 学习单例 |
