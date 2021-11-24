@@ -6,9 +6,25 @@
 
 void test01();
 
+void test02();
+
 int main() {
-    test01();
+    test02();
     return 0;
+}
+
+void test02() {
+    class AA {
+    public:
+        virtual void func1();
+    };
+
+    class AA1 : public AA {
+
+    };
+
+    std::cout << sizeof(AA) << std::endl;   // 8
+    std::cout << sizeof(AA1) << std::endl;  // 8
 }
 
 class A {
@@ -31,7 +47,7 @@ class E : virtual public A, virtual public B {
 
 };
 
-class F: public E {
+class F : public E {
 
 };
 
