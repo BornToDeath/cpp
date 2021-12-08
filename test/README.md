@@ -16,3 +16,4 @@
 | test09 | 学习单例 |
 | test10 | 学习 std::thread |
 | test11 | 学习 std::function |
+| test12 | 学习 std::partition |
