@@ -18,8 +18,10 @@ void test01() {
         std::cout << "Thread1 正在执行" << std::endl;
     });
     std::cout << t1.joinable() << std::endl;
-    t1.join();
+    t1.detach();
+    std::this_thread::sleep_for(std::chrono::seconds(1));
     std::cout << t1.joinable() << std::endl;
     std::cout << std::this_thread::get_id() << std::endl;
     std::cout << std::thread::hardware_concurrency() << std::endl;
+    t1.join();
 }
