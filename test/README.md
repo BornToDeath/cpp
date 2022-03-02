@@ -27,3 +27,4 @@
 | 测试样例 | 描述 |
 | case01 | 学习 boost 库 |
 | case02 | 测试 static 变量的初始化 |
+| case03 | 测试 extern 关键字的用法 |
