@@ -19,9 +19,18 @@ void test01() {
     });
     std::cout << t1.joinable() << std::endl;
     t1.detach();
+
     std::this_thread::sleep_for(std::chrono::seconds(1));
-    std::cout << t1.joinable() << std::endl;
-    std::cout << std::this_thread::get_id() << std::endl;
-    std::cout << std::thread::hardware_concurrency() << std::endl;
-    t1.join();
+    if (t1.joinable()) {
+        std::cout << "joinable=true" << std::endl;
+    } else {
+        std::cout << "joinable=false" << std::endl;
+    }
+
+    // 线程ID
+    std::cout << "[1]TID=" << std::this_thread::get_id() << std::endl;  // 16进制
+    printf("[2]TID=%llu\n", std::this_thread::get_id());  // 10进制
+
+    // 获取硬件支持的线程并发数
+    std::cout << "线程并发数=" << std::thread::hardware_concurrency() << std::endl;
 }
