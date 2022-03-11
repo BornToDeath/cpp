@@ -86,6 +86,58 @@ private:
     int index = -1;
 };
 
+class Solution2 {
+public:
+    char *Serialize(TreeNode *root) {
+        auto preOrderStr = preOrder(root);
+        char *res = new char[preOrderStr.size() + 1]();
+        memcpy(res, preOrderStr.c_str(), preOrderStr.size());
+        return res;
+    }
+
+    TreeNode *Deserialize(char *str) {
+        if (str == nullptr) {
+            return nullptr;
+        }
+        std::vector<std::string> strs;
+        std::string _str(str);
+        unsigned long index;
+        while ((index = _str.find_first_of(',')) != std::string::npos) {
+            strs.emplace_back(_str.substr(0, index));
+            _str = _str.substr(index + 1);
+        }
+        return realDeserialize(strs);
+    }
+
+private:
+    // 先序遍历序列化二叉树
+    std::string preOrder(TreeNode *root) {
+        if (root == nullptr) {
+            return "#,";
+        }
+        std::string res(std::to_string(root->val) + ",");
+        res.append(preOrder(root->left));
+        res.append(preOrder(root->right));
+        return res;
+    }
+
+    // 反序列化
+    TreeNode *realDeserialize(const std::vector<std::string> &strs) {
+        ++index;
+        if (strs[index] == "#") {
+            return nullptr;
+        }
+        auto root = new TreeNode(std::stoi(strs[index]));
+        root->left = realDeserialize(strs);
+        root->right = realDeserialize(strs);
+        return root;
+    }
+
+private:
+    int index = -1;
+};
+
+
 int main() {
 //    auto root = new TreeNode(1);
 //    root->left = new TreeNode(2);
@@ -97,7 +149,7 @@ int main() {
     root->left = new TreeNode(50);
     root->left->right = new TreeNode(150);
 
-    Solution solution;
+    Solution2 solution;
     auto str = solution.Serialize(root);
     std::cout << str << std::endl;
 
