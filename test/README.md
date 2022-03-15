@@ -28,3 +28,4 @@
 | case01 | 学习 boost 库 |
 | case02 | 测试 static 变量的初始化 |
 | case03 | 测试 extern 关键字的用法 |
+| case04 | 测试 C 和 C++ 方式编译的函数符号的差别 |
