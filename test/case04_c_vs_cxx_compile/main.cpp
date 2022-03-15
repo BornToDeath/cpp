@@ -7,6 +7,14 @@
 #include <unistd.h>
 #include "IApplication.h"
 
+void test01(int num) {
+    std::cout << __PRETTY_FUNCTION__ << "| num=" << num << std::endl;
+}
+
+void test01(const char *text) {
+    std::cout << __PRETTY_FUNCTION__ << "| " << text << std::endl;
+}
+
 extern "C" {
 void start111();
 };
@@ -20,6 +28,12 @@ void start111() {
 #endif
 
     IApplication::getSingleton()->start();
+
+    test01(100);
+    test01("Hello World");
+
+    std::string str("End");
+    std::cout << str << std::endl;
 }
 
 int main() {
