@@ -37,7 +37,7 @@ private:
         int end = nums.size() - 1;
         while (start <= end) {
             int mid = ((end - start) >> 1) + start;
-            if (nums[mid] < k) {
+            if (nums[mid] < k) {  // 必须是 <
                 start = mid + 1;
             } else {
                 end = mid - 1;
@@ -51,7 +51,7 @@ private:
         int end = nums.size() - 1;
         while (start <= end) {
             int mid = ((end - start) >> 1) + start;
-            if (nums[mid] <= k) {
+            if (nums[mid] <= k) {  // 必须是 <=
                 start = mid + 1;
             } else {
                 end = mid - 1;
@@ -63,7 +63,7 @@ private:
 };
 
 int main() {
-    std::vector<int> nums = {1, 2, 4, 5, 6, 7, 7};
+    std::vector<int> nums = {1, 3, 5, 7};
 //    std::cout << std::lower_bound(nums.begin(), nums.end(), 10) - nums.begin() << std::endl;
 //    std::cout << std::upper_bound(nums.begin(), nums.end(), 10) - nums.begin() << std::endl;
 
