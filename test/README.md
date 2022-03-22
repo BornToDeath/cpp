@@ -21,6 +21,7 @@
 | test13 | 学习 union 数据结构 |
 | test14 | 测试 std::sort core dump |
 | test15 | 测试 `__cplusplus` 宏 |
+| test16 | 测试 std::unique 算法 |
 
 ## 复杂的测试
 
