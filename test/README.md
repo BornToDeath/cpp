@@ -22,6 +22,7 @@
 | test14 | 测试 std::sort core dump |
 | test15 | 测试 `__cplusplus` 宏 |
 | test16 | 测试 std::unique 算法 |
+| test17 | 测试主线程和子线程的退出问题 |
 
 ## 复杂的测试
 
