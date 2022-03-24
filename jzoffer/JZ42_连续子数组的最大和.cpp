@@ -37,7 +37,33 @@ public:
 //        return *it;
 
         /**
-         * 空间复杂度 O(1)
+        * 方法2：空间复杂度 O(n)
+        * dp[i]表示以元素array[i]结尾的连续子数组最大和，则：
+        *   dp[i] :
+        *     = dp[i-1] + array[i], dp[i-1] >= 0
+        *     = array[i],           dp[i-1] < 0
+        */
+//        if (array.empty()) {
+//            return {};
+//        }
+//
+//        vector<int> dp(array.size());
+//        for (int i = 0; i < array.size(); ++i) {
+//            if (i == 0) {
+//                dp[i] = array[i];
+//                continue;
+//            }
+//            if (dp[i - 1] >= 0) {
+//                dp[i] = dp[i - 1] + array[i];
+//            } else {
+//                dp[i] = array[i];
+//            }
+//        }
+//        auto it = std::max_element(dp.begin(), dp.end());
+//        return *it;
+
+        /**
+         * 方法3：空间复杂度 O(1)
          */
         if (array.empty()) {
             return -1;
