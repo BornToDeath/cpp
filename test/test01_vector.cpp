@@ -32,8 +32,10 @@ void test02();
 
 void test03();
 
+void test04();
+
 int main() {
-    test03();
+    test04();
     return 0;
 }
 
@@ -98,4 +100,87 @@ void test01() {
 
     a.nums.emplace_back(10);
     std::cout << sizeof(a) << std::endl;  // 24
+}
+
+class Person {
+public:
+    // 无参构造
+    Person() {
+        std::cout << __PRETTY_FUNCTION__ << std::endl;
+    }
+
+    // 有参构造
+    Person(int num) {
+        std::cout << __PRETTY_FUNCTION__ << std::endl;
+    }
+
+    // 析构
+    ~Person() {
+        std::cout << __PRETTY_FUNCTION__ << std::endl;
+    }
+
+    // 拷贝构造
+    Person(const Person &obj) {
+        std::cout << __PRETTY_FUNCTION__ << std::endl;
+    }
+
+    // 拷贝赋值
+    Person &operator=(const Person &obj) {
+        std::cout << __PRETTY_FUNCTION__ << std::endl;
+        return *this;
+    }
+
+    // 移动构造
+    Person(Person &&obj) {
+        std::cout << __PRETTY_FUNCTION__ << std::endl;
+    }
+
+    // 移动赋值
+    Person &operator=(Person &&obj) {
+        std::cout << __PRETTY_FUNCTION__ << std::endl;
+        return *this;
+    }
+};
+
+/**
+ * 测试 vector 扩容
+ */
+void test04() {
+    std::vector<Person> _vec;
+    std::cout << "=====Start" << std::endl;
+    Person p1;
+
+    std::cout << "=====1" << std::endl;
+    _vec.push_back(p1);
+    std::cout << "vector size = " << _vec.capacity() << std::endl;
+
+    std::cout << "=====2" << std::endl;
+    _vec.push_back(p1);
+    std::cout << "vector size = " << _vec.capacity() << std::endl;
+
+    std::cout << "=====3" << std::endl;
+    _vec.push_back(p1);
+    std::cout << "vector size = " << _vec.capacity() << std::endl;
+
+    std::cout << "=====4" << std::endl;
+    _vec.push_back(p1);
+    std::cout << "vector size = " << _vec.capacity() << std::endl;
+
+    std::cout << "=====5" << std::endl;
+    _vec.push_back(p1);
+    std::cout << "vector size = " << _vec.capacity() << std::endl;
+
+    std::cout << "=====6" << std::endl;
+    _vec.push_back(p1);
+    std::cout << "vector size = " << _vec.capacity() << std::endl;
+
+    std::cout << "=====7" << std::endl;
+    _vec.emplace_back(std::move(p1));
+    std::cout << "vector size = " << _vec.capacity() << std::endl;
+
+    std::cout << "=====8" << std::endl;
+    _vec.emplace_back(5);
+    std::cout << "vector size = " << _vec.capacity() << std::endl;
+
+    std::cout << "=====End" << std::endl;
 }
