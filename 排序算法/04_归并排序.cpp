@@ -24,6 +24,7 @@ public:
 
         /**
          * 方法2：迭代。从下到上
+         * 这个迭代的方法有问题，正确的方法见:041_归并排序.cpp
          */
 
         auto step = 1;
@@ -82,7 +83,7 @@ private:
 
 int main() {
     Solution solution;
-    std::vector<int> nums = {7, 6, 5, 4, 3, 2, 1, 8};
+    std::vector<int> nums = {22, 34, 3, 32, 82, 55, 89, 50, 37, 5, 64, 35, 9, 70};
     solution.mergeSort(nums);
     return 0;
 }
