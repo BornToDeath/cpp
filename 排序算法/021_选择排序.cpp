@@ -16,6 +16,10 @@ inline void swap(std::vector<int> &nums, int i, int j) {
     nums[j] = temp;
 }
 
+/**
+ * 选择排序，从小到大
+ * @param nums
+ */
 void select_sort(std::vector<int> &nums) {
     for (int i = 0; i < nums.size(); ++i) {
         auto minIndex = i;
