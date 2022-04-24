@@ -34,8 +34,10 @@ void test03();
 
 void test04();
 
+void test05();
+
 int main() {
-    test04();
+    test05();
     return 0;
 }
 
@@ -183,4 +185,33 @@ void test04() {
     std::cout << "vector size = " << _vec.capacity() << std::endl;
 
     std::cout << "=====End" << std::endl;
+}
+
+/**
+ * 测试 shrink_to_fit() 方法
+ */
+void test05() {
+    std::vector<int> nums;
+    std::cout << sizeof(nums) << std::endl;
+
+    nums.push_back(1);
+    std::cout << nums.size() << ", " << nums.capacity() << std::endl;
+
+    nums.push_back(2);
+    std::cout << nums.size() << ", " << nums.capacity() << std::endl;
+
+    nums.push_back(3);
+    std::cout << nums.size() << ", " << nums.capacity() << std::endl;
+
+    nums.push_back(4);
+    std::cout << nums.size() << ", " << nums.capacity() << std::endl;
+
+    nums.push_back(5);
+    std::cout << nums.size() << ", " << nums.capacity() << std::endl;
+
+    nums.clear();
+    std::cout << nums.size() << ", " << nums.capacity() << std::endl;
+
+    nums.shrink_to_fit();
+    std::cout << nums.size() << ", " << nums.capacity() << std::endl;
 }
