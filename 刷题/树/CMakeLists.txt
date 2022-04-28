@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.4.1)
+project(树)
+set(CMAKE_CXX_STANDARD 11)
+
+add_executable(test case01_单值二叉树.cpp)
