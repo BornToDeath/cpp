@@ -4,11 +4,14 @@
 
 #include <iostream>
 #include <thread>
+#include <mutex>
 
 void test01();
 
+void test02();
+
 int main() {
-    test01();
+    test02();
     return 0;
 }
 
@@ -33,4 +36,44 @@ void test01() {
 
     // 获取硬件支持的线程并发数
     std::cout << "线程并发数=" << std::thread::hardware_concurrency() << std::endl;
+}
+
+static std::mutex mutex;
+static std::condition_variable condition;
+static int count = 0;
+
+/**
+ * 经验证：只有 notify 了，处于 wait 状态的线程才会被唤醒
+ */
+void test02() {
+    auto runnable = []() {
+        while (true) {
+            {
+                std::unique_lock<std::mutex> lock(mutex);
+                ++count;
+                printf("count=%d\n", count);
+                condition.notify_all();
+            }
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+    };
+    std::thread t1(runnable);
+    t1.detach();
+
+    auto runnable2 = []() {
+        while (true) {
+            {
+                std::unique_lock<std::mutex> lock(mutex);
+                condition.wait(lock);
+//                condition.wait(lock, []() {
+//                    return (count % 5 == 0);
+//                });
+                printf(">>> count=%d\n", count);
+            }
+//            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+    };
+
+    std::thread t2(runnable2);
+    t2.join();
 }
