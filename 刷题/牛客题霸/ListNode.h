@@ -9,7 +9,6 @@ class ListNode {
 public:
     ListNode(int val) : val(val), next(nullptr) {}
 
-private:
     int val;
     ListNode *next;
 };
