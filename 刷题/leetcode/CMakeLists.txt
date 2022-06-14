@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.4.1)
+project(刷题)
+set(CMAKE_CXX_STANDARD 11)
+#add_compile_options(-g)
+add_executable(test LC001_两数之和.cpp)
