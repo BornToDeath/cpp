@@ -17,10 +17,10 @@ public:
             return true;
         }
         int rows = board.size(), cols = board[0].size();
+        std::vector<std::vector<bool>> visited(rows, std::vector<bool>(cols, false));
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols; ++j) {
                 if (board[i][j] == word[0]) {
-                    std::vector<std::vector<bool>> visited(rows, std::vector<bool>(cols, false));
                     if (check(board, visited, i, j, word, 0)) {
                         return true;
                     }
