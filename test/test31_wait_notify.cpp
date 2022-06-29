@@ -43,9 +43,33 @@ namespace Test {
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1000000));
     }
+
+    void test02() {
+        static std::mutex mutex;
+        static std::condition_variable cv;
+
+        auto func1 = []() {
+            {
+                std::unique_lock<std::mutex> lock(mutex);
+                printf("wait...\n");
+                cv.wait_for(lock, std::chrono::seconds(10));
+                printf("wait over.\n");
+            }
+        };
+        std::thread t1(func1);
+        t1.detach();
+
+        auto func2 = []() {
+            std::this_thread::sleep_for(std::chrono::seconds(11));
+            printf("notify\n");
+            cv.notify_all();  // wait_for 会直接解除阻塞
+        };
+        std::thread t2(func2);
+        t2.join();
+    }
 }
 
 int main() {
-    Test::test01();
+    Test::test02();
     return 0;
 }
