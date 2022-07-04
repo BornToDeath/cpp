@@ -7,6 +7,8 @@
 
 void test01();
 
+void test02();
+
 /**
  * std::ofstream 测试
  */
@@ -32,7 +34,7 @@ namespace ofstreamTest {
 }
 
 int main() {
-    ofstreamTest::test01();
+    test02();
     return 0;
 }
 
@@ -54,4 +56,17 @@ void test01() {
     ifs.close();
 
     delete[] buf;
+}
+
+void test02() {
+    std::string path = "/Users/lixiaoqing/Desktop/AIDot/aidot应用包/升级包（测试用）/AIDot_0_104_20220701/upgrade.json";
+    std::ifstream ifs(path);
+    std::string content{std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>()};
+    std::cout << content << std::endl;
+
+//    std::string str;
+//    while (getline(ifs, str)) {
+//        std::cout << str << "123" << std::endl;
+//    }
+    ifs.close();
 }
