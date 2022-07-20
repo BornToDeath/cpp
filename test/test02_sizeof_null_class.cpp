@@ -8,8 +8,28 @@ void test01();
 
 void test02();
 
+void test03() {
+    class AA {
+        virtual void func() {};
+    };
+
+    // 虚继承，子类没有自定义虚函数
+    class BB : virtual public AA {
+
+    };
+
+    // 虚继承，子类有自定义虚函数
+    class CC : virtual public AA {
+        virtual void funcCC() {};
+    };
+
+    std::cout << sizeof(AA) << std::endl;  // 8
+    std::cout << sizeof(BB) << std::endl;  // 8
+    std::cout << sizeof(CC) << std::endl;  // 8
+}
+
 int main() {
-    test02();
+    test03();
     return 0;
 }
 
