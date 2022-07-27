@@ -8,7 +8,7 @@
 
 /**
  * 方法2：自定义链表节点，节点包含 key, val 以及 该节点的前驱和后继
- * 关键：哈希链表，即 std::unordered_map + 双向链表
+ * 关键：哈希链表，即 std::unordered_map + 双向链表。map 存储所有的 <key, value> ，便于进行 O(1) 时间复杂度查找，双向链表用于存储 LRU 节点
  */
 class LRUCache {
 public:
@@ -29,7 +29,7 @@ public:
     }
 
     void put(int key, int value) {
-        if (map.count(key)) {
+        if (map.count(key) == 0) {
             if (map.size() == capacity) {
                 pop_front();
             }
