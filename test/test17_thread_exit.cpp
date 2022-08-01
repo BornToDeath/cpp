@@ -73,20 +73,24 @@ static A a;
 std::condition_variable cv;
 static bool flag = false;
 
+/**
+ * 复现问题：主线程退出，全局静态对象析构导致工作线程访问崩溃。
+ * 解决方法：保证退出的顺序，先结束工作线程，最后结束主线程。
+ */
 void test03() {
-    log("Outer: %p, %p", &a, a.num);
+    log("Outer: num=%d, %p, %p", *a.num, &a, a.num);
     auto loop = []() {
-        log("After wait");
         for (int i = 0; i < 10; ++i) {
             auto func = []() {
-                long count = 100000000;
+                long count = 10000000000;
                 while (count-- > 0) {
-                    if (count % 50000000 == 0) {
+                    // 这是关键！为了复现崩溃，日志要全部打印，否则全局变量在析构之后，子线程就可能不会访问已经析构的全局变量，就无法复现崩溃
+//                    *a.num = 20;
+//                    if (count % 50000000 == 0) {
                         log("[%llu] A::num=%d, %p", std::this_thread::get_id(), *a.num, a.num);
-                    }
+//                    }
                 }
                 log("thread exit");
-                exit(1);
             };
             std::thread t(func);
             t.detach();
@@ -126,7 +130,7 @@ void test04() {
 
 int main() {
     log("Enter main");
-    test04();
+    test03();
     std::this_thread::sleep_for(std::chrono::seconds(1));
 //    test01();
 //    int count = 10;
