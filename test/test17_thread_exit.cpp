@@ -56,13 +56,14 @@ void func_mutex() {
 class A {
 public:
     A() : num(new int(10)) {
-        log("%s", __PRETTY_FUNCTION__);
+        printf("%s\n", __PRETTY_FUNCTION__);
     }
 
     ~A() {
-        log("%s", __PRETTY_FUNCTION__);
+        printf("%s\n", __PRETTY_FUNCTION__);
         delete num;
         num = nullptr;
+        printf("After delete\n");
     }
 
 public:
@@ -78,31 +79,24 @@ static bool flag = false;
  * 解决方法：保证退出的顺序，先结束工作线程，最后结束主线程。
  */
 void test03() {
-    log("Outer: num=%d, %p, %p", *a.num, &a, a.num);
-    auto loop = []() {
-        for (int i = 0; i < 10; ++i) {
-            auto func = []() {
-                long count = 10000000000;
-                while (count-- > 0) {
-                    // 这是关键！为了复现崩溃，日志要全部打印，否则全局变量在析构之后，子线程就可能不会访问已经析构的全局变量，就无法复现崩溃
-//                    *a.num = 20;
-//                    if (count % 50000000 == 0) {
-                        log("[%llu] A::num=%d, %p", std::this_thread::get_id(), *a.num, a.num);
-//                    }
-                }
-                log("thread exit");
-            };
-            std::thread t(func);
-            t.detach();
-        }
-    };
-    std::thread t(loop);
-    t.detach();
+    printf("Outer: num=%d, %p, %p\n", *a.num, &a, a.num);
+    for (int i = 0; i < 10; ++i) {
+        auto func = []() {
+            long count = 10000000000;
+            while (count-- > 0) {
+                // 这是关键！为了复现崩溃，日志要全部打印，否则全局变量在析构之后，子线程就可能不会访问已经析构的全局变量，就无法复现崩溃
+                printf("[%llu] A::num=%d, %p\n", std::this_thread::get_id(), *a.num, a.num);
+            }
+            printf("thread exit\n");
+        };
+        std::thread t(func);
+        t.detach();
+    }
 }
 
 void thread_exit() {
     log("thread start");
-    std::this_thread::sleep_for(std::chrono::seconds (5));
+    std::this_thread::sleep_for(std::chrono::seconds(5));
     log("ready to exit");
 //    exit(0);
 }
@@ -132,14 +126,6 @@ int main() {
     log("Enter main");
     test03();
     std::this_thread::sleep_for(std::chrono::seconds(1));
-//    test01();
-//    int count = 10;
-//    while (count > 0) {
-//        --count;
-//        log("主线程休眠中...");
-//        sleep(1);
-//    }
-//    pthread_exit(NULL);
     log("Leave main");
     return 0;
 }
