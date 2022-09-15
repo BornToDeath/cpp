@@ -27,7 +27,7 @@ public:
          * 参考：https://leetcode.cn/problems/gas-station/solution/by-nehzil-nnws/
          * 时间复杂度 O(n) ，空间复杂度 O(1)
          */
-        int total = 0, left = 0, pos = -1;
+        int total = 0, left = 0, pos = 0;
         for (int i = 0; i < gas.size(); ++i) {
             total += gas[i] - cost[i];
             left += gas[i] - cost[i];
