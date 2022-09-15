@@ -4,9 +4,10 @@
 
 #include <iostream>
 #include "hello.h"
+#include "world.h"
 
 int main() {
     printf("%s\n", __PRETTY_FUNCTION__);
-    A().aaa();
+    Hello().aaa();
     return 0;
 }

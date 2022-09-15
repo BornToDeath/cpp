@@ -8,10 +8,11 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ffunction-sections -fdata-sections -fvi
 
 #add_link_options(--gc-sections)
 
-add_library(hello STATIC hello.cpp)
+# 由于 world.cpp 中的符号没被 main.cpp 用到，所以 world.cpp 中的符号不会被添加到可执行文件中
+add_library(hello STATIC hello.cpp world.cpp)
 add_executable(runHello main.cpp)
 target_link_libraries(
         runHello
         hello
-        -Wl,-dead_strip  # 添加此选项，则可执行文件中只有使用的符号，没被使用的符号不会被添加。注意：这个选项只是mac上的，linux上可能不适用
+#        -Wl,-dead_strip  # 添加此选项，则可执行文件中只有使用的符号，没被使用的符号不会被添加。注意：这个选项只是mac上的，linux上可能不适用
 )

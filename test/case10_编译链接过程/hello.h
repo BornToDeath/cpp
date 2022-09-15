@@ -5,7 +5,7 @@
 #ifndef HELLO_H
 #define HELLO_H
 
-class A {
+class Hello {
 public:
     __attribute__((visibility ("default"))) void aaa();
     __attribute__((visibility ("hidden"))) void bbb();

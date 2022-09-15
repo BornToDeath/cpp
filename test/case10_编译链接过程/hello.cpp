@@ -10,14 +10,14 @@
 //}
 
 
-void A::aaa() {
+void Hello::aaa() {
     printf("%s\n", __PRETTY_FUNCTION__);
 }
 
-void A::bbb() {
+void Hello::bbb() {
     printf("%s\n", __PRETTY_FUNCTION__);
 }
 
-void A::ccc() {
+void Hello::ccc() {
     printf("%s\n", __PRETTY_FUNCTION__);
 }
