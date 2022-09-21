@@ -9,5 +9,6 @@
 int main() {
     printf("%s\n", __PRETTY_FUNCTION__);
     Hello().aaa();
+    World().aaa();
     return 0;
 }

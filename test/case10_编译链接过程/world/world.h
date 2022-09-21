@@ -8,7 +8,7 @@
 
 class World {
 public:
-    void aaa();
+    void aaa(int num = 10);
     void bbb();
     void ccc();
 };
