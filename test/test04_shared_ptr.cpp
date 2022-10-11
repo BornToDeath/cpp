@@ -82,7 +82,15 @@ void test02() {
     std::shared_ptr<std::string> str1(str);
 }
 
+void test03() {
+    auto a = std::make_shared<A>();
+    std::cout << a.use_count() << std::endl;
+    auto b = std::make_shared<A>();
+    std::cout << a.use_count() << std::endl;
+    std::cout << b.use_count() << std::endl;
+}
+
 int main() {
-    test02();
+    test03();
     return 0;
 }
