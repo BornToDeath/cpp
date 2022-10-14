@@ -49,10 +49,21 @@ void test03() {
 }
 
 void test04() {
-    const string re = "back";
-    const std::string str = "2022-03-22-front.ts";
+//    const string re = "^.*(_back|_[1-3])(\\.[^.]+)?$";  // false
+//    const string re = ".*(_back|_[1-3])";  // true
+//    const string re = ".*(_back|_[1-3])(\\..+)";  // true
+    const string re = "^.*(_back|_[1-3])(\\.[^\\.]+)?$";  // true
+    std::cout << re << std::endl;
+
+    const std::string str = "20221014073948_back.ts\\";
+    std::cout << str << std::endl;
+
     int res = slre_match(re.c_str(), str.c_str(), str.length(), NULL, 0, 0);
     std::cout << res << std::endl;
+
+    std::regex regex(re);
+//    std::cout << std::regex_match(str, regex) << std::endl;
+    std::cout << std::regex_search(str, regex) << std::endl;
 }
 
 int main() {
