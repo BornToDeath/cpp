@@ -15,6 +15,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <map>
 
 class A {
 public:
@@ -36,8 +37,10 @@ void test04();
 
 void test05();
 
+void test06();
+
 int main() {
-    test05();
+    test06();
     return 0;
 }
 
@@ -214,4 +217,44 @@ void test05() {
 
     nums.shrink_to_fit();
     std::cout << nums.size() << ", " << nums.capacity() << std::endl;
+}
+
+void test06() {
+    std::vector<int> v;
+    for (int i = 0; i < 5; ++i) {
+        v.push_back(i + 1);
+    }
+
+    for (int &i : v) {
+        std::cout << i << ": " << &i << std::endl;
+    }
+    std::cout << "[1]-------------" << std::endl;
+
+    for (std::vector<int>::iterator it = v.begin(); it != v.end();) {
+        it = v.erase(it);  // 推荐写法
+//        v.erase(it++);  // 有崩溃
+    }
+    std::cout << "[2]-------------" << std::endl;
+
+    std::map<int, int> _map = {
+            {1, 1},
+            {2, 2},
+            {3, 3},
+            {4, 4},
+            {5, 5},
+    };
+
+    for (auto &e: _map) {
+        std::cout << "[" << e.first << ", " << e.second << "]" << ": " << &e << std::endl;
+    }
+
+    auto it = _map.begin();
+    while (it != _map.end()) {
+        it = _map.erase(it);  // 推荐写法
+//        _map.erase(it++);  // 不会崩溃
+//        it++;  // 会崩溃
+    }
+
+    std::cout << _map.size() << std::endl;
+    std::cout << "End" << std::endl;
 }
