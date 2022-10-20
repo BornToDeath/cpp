@@ -78,7 +78,7 @@ int main() {
                 ret = epoll_ctl(epoll_fd, EPOLL_CTL_ADD, new_fd, &ev);
                 if (ret == -1) {
                     perror("epoll_ctl accept error");
-                    exit(0);
+                    continue;
                 }
             } else {
                 char buf[1024]{};
@@ -96,7 +96,7 @@ int main() {
                     send(cur_fd, text.c_str(), text.length(), 0);
                 } else {
                     perror("socket recv error");
-                    exit(0);
+                    continue;
                 }
             }
         }
