@@ -9,6 +9,8 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <sys/epoll.h>
+#include <string>
+#include <iostream>
 
 // socket 最大连接数
 #define SOCKET_COUNT (64)
@@ -87,7 +89,11 @@ int main() {
                     close(cur_fd);
                 } else if (len > 0) {
                     printf("客户端说: %s\n", buf);
-                    send(cur_fd, buf, len, 0);
+                    std::string text;
+                    getline(std::cin, text);  // 等待输入
+                    text.insert(0, "from server: ");
+                    text.push_back('\n');
+                    send(cur_fd, text.c_str(), text.length(), 0);
                 } else {
                     perror("socket recv error");
                     exit(0);
