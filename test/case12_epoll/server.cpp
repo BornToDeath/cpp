@@ -72,7 +72,11 @@ int main() {
         for (int i = 0; i < num; ++i) {
             int cur_fd = evs[i].data.fd;
             if (cur_fd == socket_fd) {
-                int new_fd = accept(socket_fd, NULL, NULL);
+                struct sockaddr_in client_addr;
+                socklen_t client_addr_len = sizeof(client_addr);
+                int new_fd = accept(socket_fd, (struct sockaddr *) &client_addr, &client_addr_len);
+                printf("new client: %d, IP: %s:%d\n", new_fd, inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+
                 ev.data.fd = new_fd;
                 ev.events = EPOLLIN;
                 ret = epoll_ctl(epoll_fd, EPOLL_CTL_ADD, new_fd, &ev);
@@ -90,8 +94,8 @@ int main() {
                 } else if (len > 0) {
                     printf("客户端说: %s\n", buf);
                     std::string text;
-                    getline(std::cin, text);  // 等待输入
-                    text.insert(0, "from server: ");
+//                    getline(std::cin, text);  // 等待输入
+                    text.insert(0, "[吴彦祖] 啊对对对");
                     text.push_back('\n');
                     send(cur_fd, text.c_str(), text.length(), 0);
                 } else {
