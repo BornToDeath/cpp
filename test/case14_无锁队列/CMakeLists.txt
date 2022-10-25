@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.4.1)
+project(LockFreeQueue)
+set(CMAKE_CXX_STANDARD 11)
+add_compile_options(-g)
+aux_source_directory(. SRCS)
+add_executable(my_test_app ${SRCS})
