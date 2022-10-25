@@ -10,6 +10,9 @@ template<typename T>
 class RingBuffer {
 public:
     explicit RingBuffer(unsigned int size) : m_size(size + 1), m_head(0), m_tail(0) {
+        if (size <= 0) {
+            throw "size can not less than 0";
+        }
         m_data = new T[m_size]();
     }
 
@@ -21,7 +24,6 @@ public:
 public:
     bool push(const T &value) {
         if (isFull()) {
-//            printf("head=%d, tail=%d, value=%d\n", m_head, m_tail, value);
             return false;
         }
         m_data[m_tail] = value;
@@ -64,7 +66,7 @@ public:
     }
 
     unsigned int capacity() const {
-        return m_size;
+        return m_size - 1;
     }
 
 private:
