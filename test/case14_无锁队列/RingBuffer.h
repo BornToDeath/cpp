@@ -2,6 +2,9 @@
 // Created by lixiaoqing on 2022/10/25.
 //
 
+#ifndef RINGBUFFER_H
+#define RINGBUFFER_H
+
 /**
  * 无锁环形缓冲区
  * @tparam T
@@ -75,3 +78,5 @@ private:
     int m_tail;                 // 队列尾部索引
     T *m_data;                  // 数据缓冲区
 };
+
+#endif
