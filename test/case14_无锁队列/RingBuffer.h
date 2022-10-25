@@ -7,6 +7,7 @@
 
 /**
  * 无锁环形缓冲区
+ * 仅适用于单生产者单消费者场景。
  * @tparam T
  */
 template<typename T>
