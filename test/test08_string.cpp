@@ -32,6 +32,8 @@ void test07();
 
 void test08();
 
+void test09();
+
 
 int main() {
 //    auto t1 = getCurrentTimeMills();
@@ -44,8 +46,17 @@ int main() {
 //    t2 = getCurrentTimeMills();
 //    std::cout << "test02 耗时：" << (t2-t1) << std::endl;
 
-    test08();
+    test09();
     return 0;
+}
+
+void test09() {
+    std::string s;
+    std::cout << sizeof(s) << std::endl;  // 24
+    for (int i = 0; i < 10; ++i) {
+        s.append("1");
+        std::cout << sizeof(s) << std::endl;  // always 24
+    }
 }
 
 void test01() {
