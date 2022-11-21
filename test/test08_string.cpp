@@ -34,6 +34,8 @@ void test08();
 
 void test09();
 
+void test10();
+
 
 int main() {
 //    auto t1 = getCurrentTimeMills();
@@ -46,8 +48,21 @@ int main() {
 //    t2 = getCurrentTimeMills();
 //    std::cout << "test02 耗时：" << (t2-t1) << std::endl;
 
-    test09();
+    test10();
     return 0;
+}
+
+void test10() {
+    unsigned long long num = 100;
+//    std::string s = num;   // error: 不可以直接赋值
+
+    struct Node {
+        std::string sss;
+    };
+
+    Node node;
+    node.sss = num;   // error: 可以直接赋值，但是赋的值不对
+    std::cout << node.sss << std::endl;
 }
 
 void test09() {
