@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.4.1)
-project(Test)
+project(刷题)
 set(CMAKE_CXX_STANDARD 11)
 add_compile_options(-g)
-add_executable(my_test_app test01_vector.cpp)
+add_executable(test BM45_滑动窗口的最大值.cpp)
