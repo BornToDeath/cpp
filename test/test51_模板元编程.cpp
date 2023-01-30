@@ -78,7 +78,75 @@ void test03() {
 
 // ----------------------------
 
+/*
+ * 利用模板实现编译期计算斐波那契数列。C++11 写法。下文提供了 C++17 写法。
+ */
+
+template<int N>
+int fibonacci() {
+    return fibonacci<N - 1>() + fibonacci<N - 2>();
+}
+
+template<>
+int fibonacci<1>() {
+    return 1;
+}
+
+template<>
+int fibonacci<0>() {
+    return 0;
+}
+
+void test04() {
+    std::cout << fibonacci<10>() << std::endl;
+    std::cout << fibonacci<20>() << std::endl;
+}
+
+// ----------------------------
+
+/*
+ * 利用模板实现编译期计算斐波那契数列。C++17 写法。
+ */
+
+template<int N>
+constexpr int fibonacci2() {
+    if constexpr(N <= 1) {
+        return N;
+    } else {  // else语句 必须有！
+        return fibonacci2<N - 1>() + fibonacci2<N - 2>();
+    }
+}
+
+void test05() {
+    std::cout << fibonacci2<10>() << std::endl;
+    std::cout << fibonacci2<20>() << std::endl;
+}
+
+// ----------------------------
+
+/*
+ * C++20 concept
+ * 注意：如下代码可能编译不通过，因为 concept 特性在 Apple Clang 12.0.0 以上（包括）才被支持，且 12.0.0 只支持部分 concept 的特性！
+ * https://en.cppreference.com/w/cpp/compiler_support
+ */
+
+//template<typename T>
+//concept Integral = std::is_integral<T>::value;
+//
+//template<Integral T>
+//bool equal(const T &a, const T &b) {
+//    return a == b;
+//}
+//
+//void test06() {
+//    std::cout << equal(10, 20) << std::endl;
+//    std::cout << equal(10, 10) << std::endl;
+//    //std::cout << equal(10.11, 10.1) << std::endl;  // error
+//}
+
+// ----------------------------
+
 int main() {
-    test03();
+    test05();
     return 0;
 }
