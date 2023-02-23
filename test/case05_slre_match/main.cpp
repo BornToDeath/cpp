@@ -66,7 +66,33 @@ void test04() {
     std::cout << std::regex_search(str, regex) << std::endl;
 }
 
+/**
+ * slre_match 是搜索匹配，不是全文匹配！
+ */
+void test05() {
+    const std::string re = "back";
+    const std::string str = "front_20221014073948_back.ts";
+    int res = slre_match(re.c_str(), str.c_str(), str.length(), NULL, 0, 0);
+    std::cout << (res > 0) << std::endl;
+
+    std::regex regex(re);
+    std::cout << std::regex_search(str, regex) << std::endl;  // 搜素匹配
+    std::cout << std::regex_match(str, regex) << std::endl;   // 全文匹配
+}
+
+void test06() {
+    const std::string re = "^front.*back";
+    const std::string str = "front_20221014073948_back.ts";
+    int res = slre_match(re.c_str(), str.c_str(), str.length(), NULL, 0, 0);
+    std::cout << (res > 0) << std::endl;
+
+    std::regex regex(re);
+    std::cout << std::regex_search(str, regex) << std::endl;
+    std::cout << std::regex_match(str, regex) << std::endl;
+}
+
 int main() {
-    test04();
+    std::cout << std::boolalpha;
+    test06();
     return 0;
 }
