@@ -74,21 +74,50 @@ void quick_sort(std::vector<int> &nums) {
     /**
      * 方法2：非递归写法
      */
-    if (nums.empty()) {
-        return;
-    }
+//    if (nums.empty()) {
+//        return;
+//    }
+//    std::stack<std::pair<int, int>> _stack;
+//    _stack.push({0, nums.size() - 1});
+//    while (!_stack.empty()) {
+//        auto interval = _stack.top();
+//        _stack.pop();
+//        int pos = quick_sort2(nums, interval.first, interval.second);
+//        if (pos > interval.first) {
+//            _stack.push({interval.first, pos - 1});
+//        }
+//        if (pos < interval.second) {
+//            _stack.push({pos + 1, interval.second});
+//        }
+//    }
+
+    /**
+     * 方法3：非递归写法2
+     */
     std::stack<std::pair<int, int>> _stack;
     _stack.push({0, nums.size() - 1});
     while (!_stack.empty()) {
-        auto interval = _stack.top();
+        int l = _stack.top().first;
+        int r = _stack.top().second;
         _stack.pop();
-        int pos = quick_sort2(nums, interval.first, interval.second);
-        if (pos > interval.first) {
-            _stack.push({interval.first, pos - 1});
+        if (l >= r) {
+            continue;
         }
-        if (pos < interval.second) {
-            _stack.push({pos + 1, interval.second});
+        int i = l, j = r;
+        while (i < j) {
+            while (i < j && nums[j] > nums[l]) {
+                --j;
+            }
+            while (i < j && nums[i] <= nums[l]) {
+                ++i;
+            }
+            if (i < j) {
+                std::swap(nums[i], nums[j]);
+            }
         }
+        std::swap(nums[l], nums[i]);
+        _stack.push({l, i - 1});
+        _stack.push({i + 1, r});
     }
 }
 
