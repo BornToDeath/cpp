@@ -33,7 +33,7 @@ public:
          */
         int d = 1;      // 表示目标是几位数
         int count = 9;  // 区间的长度
-        while (n > count) {
+        while (n > (long) count * d) {
             n -= d * count;
             ++d;
             count *= 10;
@@ -46,6 +46,8 @@ public:
 
 int main() {
     // 0123456789101112131415161718192021222324252627282930
+    std::cout << Solution().findNthDigit(0) << std::endl;
     std::cout << Solution().findNthDigit(16) << std::endl;
+    std::cout << Solution().findNthDigit(100) << std::endl;
     return 0;
 }
