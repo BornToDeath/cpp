@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.4.1)
+project(algorithms)
+set(CMAKE_CXX_STANDARD 11)
+add_compile_options(-g)
+add_executable(algo MS67_把字符串转换成整数.cpp)
