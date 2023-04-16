@@ -25,7 +25,7 @@ public:
 //        return count;
 
         /*
-         * 方法2: 借助二分查找的思想
+         * 方法2: 借助归并排序的思想
          * 时间复杂度 O(nlogn) , 空间复杂度 O(n)
          */
         if (nums.empty()) {
