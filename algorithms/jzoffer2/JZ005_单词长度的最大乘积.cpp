@@ -35,7 +35,7 @@ public:
 
         /*
          * 方法2: 在方法1的基础上进行改进，预先使用位掩码表征每个单词，这样两个单词之间进行比较的时间复杂度就降到了 O(1)
-         * 时间复杂度 O(n^2) , 空间复杂度 O(nL) , 其中 L=sizeof(int)
+         * 时间复杂度 O(n^2 + L) , 空间复杂度 O(n) , 其中 L 是 words 中全部单词长度之和
          */
         int ans = 0;
         std::vector<std::bitset<26>> dp(words.size(), 0);
@@ -56,7 +56,7 @@ public:
 
         /*
          * 方法3: 不使用 bitset 而使用 int
-         * 时间复杂度 O(n^2) , 空间复杂度 O(nL) , 其中 L=sizeof(int)
+         * 时间复杂度 O(n^2 + L) , 空间复杂度 O(n) , 其中 L 是 words 中全部单词长度之和
          */
 //        int ans = 0;
 //        std::vector<int> dp(words.size(), 0);
