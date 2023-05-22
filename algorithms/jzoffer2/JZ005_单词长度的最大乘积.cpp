@@ -18,27 +18,69 @@ public:
          * 方法1: 双重循环比较, 不 AC , 时间超限
          * 时间复杂度 O(n ^ 2 * L), 空间复杂度 O(L), 其中 n 是字符串的个数, L 是字符串的平均长度
          */
+//        int ans = 0;
+//        static std::unordered_set<char> alphabet;
+//        auto lengthBetweenString = [](const std::string_view &s1, const std::string_view s2) -> int {
+//            alphabet.clear();
+//            alphabet.insert(s1.begin(), s1.end());
+//            auto flag = std::none_of(s2.begin(), s2.end(), [](char c) { return alphabet.count(c) == 1; });
+//            return flag ? s1.length() * s2.length() : 0;
+//        };
+//        for (int i = 0; i < words.size(); ++i) {
+//            for (int j = i + 1; j < words.size(); ++j) {
+//                ans = std::max(ans, lengthBetweenString(words.at(i), words.at(j)));
+//            }
+//        }
+//        return ans;
+
+        /*
+         * 方法2: 在方法1的基础上进行改进，预先使用位掩码表征每个单词，这样两个单词之间进行比较的时间复杂度就降到了 O(1)
+         * 时间复杂度 O(n^2) , 空间复杂度 O(nL) , 其中 L=sizeof(int)
+         */
         int ans = 0;
-        static std::unordered_set<char> alphabet;
-        auto lengthBetweenString = [](const std::string_view &s1, const std::string_view s2) -> int {
-            alphabet.clear();
-            alphabet.insert(s1.begin(), s1.end());
-            auto flag = std::none_of(s2.begin(), s2.end(), [](char c) { return alphabet.count(c) == 1; });
-            return flag ? s1.length() * s2.length() : 0;
-        };
+        std::vector<std::bitset<26>> dp(words.size(), 0);
+        for (int i = 0; i < dp.size(); ++i) {
+            auto word = words.at(i);
+            for (auto c: word) {
+                dp.at(i).set(c - 'a');
+            }
+        }
         for (int i = 0; i < words.size(); ++i) {
             for (int j = i + 1; j < words.size(); ++j) {
-                ans = std::max(ans, lengthBetweenString(words.at(i), words.at(j)));
+                if ((dp[i] & dp[j]) == 0) {
+                    ans = std::max(ans, (int) (words[i].length() * words[j].length()));
+                }
             }
         }
         return ans;
+
+        /*
+         * 方法3: 不使用 bitset 而使用 int
+         * 时间复杂度 O(n^2) , 空间复杂度 O(nL) , 其中 L=sizeof(int)
+         */
+//        int ans = 0;
+//        std::vector<int> dp(words.size(), 0);
+//        for (int i = 0; i < dp.size(); ++i) {
+//            auto word = words.at(i);
+//            for (auto c: word) {
+//                dp.at(i) |= 1 << (c - 'a');
+//            }
+//        }
+//        for (int i = 0; i < words.size(); ++i) {
+//            for (int j = i + 1; j < words.size(); ++j) {
+//                if ((dp[i] & dp[j]) == 0) {
+//                    ans = std::max(ans, (int) (words[i].length() * words[j].length()));
+//                }
+//            }
+//        }
+//        return ans;
     }
 };
 
 int main() {
     std::vector<std::string> words = {"abcw", "baz", "foo", "bar", "fxyz", "abcdef"};
-//    words = {"a", "ab", "abc", "d", "cd", "bcd", "abcd"};
-//    words = {"a", "aa", "aaa", "aaaa"};
+    words = {"a", "ab", "abc", "d", "cd", "bcd", "abcd"};
+    words = {"a", "aa", "aaa", "aaaa"};
     words = {"rcpzismixnpnmbqeitlwptppjpidjblkppuzpmwibjoptzmobhydloxqexe", "yqpqpll",
              "blwjfpljvdeeuafqscxdgwybowchnbmkgoyofvrrpww", "mwsedjtqtpbygheohbrbntvlsmpixwu",
              "ftobpfdgcqtoopikksuxaeimchhdbxwwyeymjihtncyuvcqguchlgmdbshwqupfkabsgaeqntvrrlyymglatlfsuajzklg",
