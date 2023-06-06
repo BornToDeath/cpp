@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.4.1)
+project(algo)
+set(CMAKE_CXX_STANDARD 11)
+add_compile_options(-g)
+add_executable(run_algo MS01_判断字符是否唯一.cpp)
