@@ -11,11 +11,13 @@ class Solution {
 public:
     vector<int> productExceptSelf(vector<int> &nums) {
         /**
-         * 方法：动态规划，不使用除法运算，时间复杂度 O(n)
+         * 方法：动态规划，不使用除法运算
          * dp[i] = (A[0] * A[1] * ... * A[i-1]) * (A[i+1] * ... * A[n])
          *       = left[i] * right[i]
          * 其中，left[i] = left[i-1] * A[i-1],
          *      right[i] = right[i+1] * A[i+1]
+         *
+         * 时间复杂度 O(n) , 空间复杂度 O(1)
          */
         if (nums.empty()) {
             return {};
@@ -24,10 +26,10 @@ public:
         for (int i = 1; i < nums.size(); ++i) {
             dp[i] = dp[i - 1] * nums[i - 1];
         }
-        int mul = 1;
+        int mul = nums.back();
         for (int i = nums.size() - 2; i >= 0; --i) {
-            dp[i] *= mul * nums[i + 1];
-            mul *= nums[i + 1];
+            dp[i] *= mul;
+            mul *= nums[i];
         }
         return dp;
     }
