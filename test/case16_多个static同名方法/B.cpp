@@ -4,8 +4,11 @@
 
 #include <iostream>
 
-static int num = 10;
+static int b_global_static_num = 10;
+int b_global_nonstatic_num = 20;
+extern const int a_global_const_num;
 
-static void print() {
-    printf("Hello world.\n");
+void b_print() {
+    printf("%s\n", __PRETTY_FUNCTION__);
+    printf("%d\n", a_global_const_num);
 }
