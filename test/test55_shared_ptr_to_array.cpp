@@ -26,6 +26,12 @@ __attribute__((destructor)) void after_main() {
 
 int main() {
 //    std::shared_ptr<A> p(new A[5]);  // wrong
-    std::shared_ptr<A> p(new A[5], [](A *p) { delete[]p; });
+
+    // 1. 自定义析构函数
+    std::shared_ptr<A> p1(new A[5], [](A *p) { delete[]p; });
+
+    // 2. 使用删除器 std::default_delete, 其重载了函数调用运算符"()"
+    std::shared_ptr<A> p2(new A[5], std::default_delete<A[]>());
+
     return 0;
 }
