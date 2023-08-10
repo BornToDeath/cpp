@@ -12,16 +12,18 @@ public:
 
     ~Book();
 
-    void print();
+public:
 
-    void setCount(int count);
+    void print() const;
+
+    void setCount(int count) const;
 
     int getCount() const;
 
 public:
     class Impl;
 
-    Impl *pimpl;
+    std::unique_ptr<Impl> pimpl;
 };
 
 
