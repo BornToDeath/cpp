@@ -146,7 +146,50 @@ void test05() {
 
 // ----------------------------
 
+class Person {
+public:
+    template<
+            typename T,
+            typename = typename std::enable_if<!std::is_same<Person, typename std::decay<T>::type>::value>::type
+    >
+    explicit Person(T &&n) {
+        std::cout << __PRETTY_FUNCTION__ << std::endl;
+    }
+
+    template<typename A, typename B = float>
+    void print() {
+        std::cout << "Hello world." << std::endl;
+    }
+};
+
+void test07() {
+    int num = 10;
+    std::cout << "--------------------" << std::endl;
+    Person p1(num);
+    std::cout << "--------------------" << std::endl;
+    Person p2(p1);
+    std::cout << "--------------------" << std::endl;
+    Person p3("123");
+    std::cout << "--------------------" << std::endl;
+    p3.print<int>();
+}
+
+template<typename T>
+typename std::enable_if<std::is_integral<T>::value>::type sfinae_test(T value) {
+    std::cout << "T is int" << std::endl;
+}
+
+void test08() {
+    int num1 = 10;
+    sfinae_test(num1);
+
+    float num2 = 11.1;
+//    sfinae_test(num2);  // error!
+}
+
+// ----------------------------
+
 int main() {
-    test05();
+    test08();
     return 0;
 }
