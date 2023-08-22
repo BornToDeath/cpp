@@ -189,7 +189,54 @@ void test08() {
 
 // ----------------------------
 
+// 引用折叠
+void test09() {
+    int num = 10;
+    std::cout << typeid(num).name() << std::endl;
+    std::cout << "----------------------" << std::endl;
+
+    const int &n1 = num;
+    std::cout << typeid(n1).name() << std::endl;
+    std::cout << std::is_same<decltype(n1), int>::value << std::endl;
+    std::cout << std::is_same<decltype(n1), int &>::value << std::endl;
+    std::cout << std::is_same<decltype(n1), const int &>::value << std::endl;
+    std::cout << "----------------------" << std::endl;
+
+    auto n2 = n1;
+    std::cout << typeid(n2).name() << std::endl;
+    std::cout << std::is_same<decltype(n2), int>::value << std::endl;
+    std::cout << std::is_same<decltype(n2), int &>::value << std::endl;
+    std::cout << std::is_same<decltype(n2), const int &>::value << std::endl;
+    std::cout << "----------------------" << std::endl;
+
+    auto &&n3 = n1;
+    std::cout << typeid(n3).name() << std::endl;
+    std::cout << std::is_same<decltype(n3), int>::value << std::endl;
+    std::cout << std::is_same<decltype(n3), int &>::value << std::endl;
+    std::cout << std::is_same<decltype(n3), const int &>::value << std::endl;
+    std::cout << "----------------------" << std::endl;
+
+    auto &&n4 = 10;
+    std::cout << typeid(n4).name() << std::endl;
+    std::cout << std::is_same<decltype(n4), int>::value << std::endl;
+    std::cout << std::is_same<decltype(n4), int &>::value << std::endl;
+    std::cout << std::is_same<decltype(n4), const int &>::value << std::endl;
+    std::cout << std::is_same<decltype(n4), int &&>::value << std::endl;
+    std::cout << std::is_same<decltype(n4), const int &&>::value << std::endl;
+    std::cout << "----------------------" << std::endl;
+
+    decltype(auto) n5 = 10;
+    std::cout << std::is_same<decltype(n4), int>::value << std::endl;
+    std::cout << std::is_same<decltype(n4), int &>::value << std::endl;
+    std::cout << std::is_same<decltype(n4), const int &>::value << std::endl;
+    std::cout << std::is_same<decltype(n4), int &&>::value << std::endl;
+    std::cout << std::is_same<decltype(n4), const int &&>::value << std::endl;
+    std::cout << "----------------------" << std::endl;
+}
+
+// ----------------------------
+
 int main() {
-    test08();
+    test09();
     return 0;
 }
