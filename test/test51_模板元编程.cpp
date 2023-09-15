@@ -236,7 +236,46 @@ void test09() {
 
 // ----------------------------
 
+template<typename T>
+void func(T &&t) {
+    if (std::is_same<decltype(t), int>::value) {
+        std::cout << "int" << std::endl;
+    } else if (std::is_same<decltype(t), int &>::value) {
+        std::cout << "int &" << std::endl;
+    } else if (std::is_same<decltype(t), int &&>::value) {
+        std::cout << "int &&" << std::endl;
+    } else if (std::is_same<decltype(t), const int &>::value) {
+        std::cout << "const int &" << std::endl;
+    } else if (std::is_same<decltype(t), const int &&>::value) {
+        std::cout << "const int &&" << std::endl;
+    } else if (std::is_same<decltype(t), volatile int &>::value) {
+        std::cout << "volatile int &" << std::endl;
+    } else {
+        std::cout << "unknown" << std::endl;
+    }
+}
+
+// 测试 cv 属性是否会被转发. 结论: 都会
+void test10() {
+    int n1 = 10;
+    func(n1);
+
+    const int n2 = n1;
+    func(n2);
+
+    const int &n3 = n2;
+    func(n3);
+
+    int &&n4 = 10;
+    func(n4);
+    func(std::forward<int &&>(n4));
+    func(10);
+
+    volatile int &n5 = n1;
+    func(n5);
+}
+
 int main() {
-    test09();
+    test10();
     return 0;
 }
