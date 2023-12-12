@@ -37,4 +37,12 @@ TEST(MyTest, FooReturnsValue) {
     int num = 30;
     EXPECT_CALL(mock, foo(num)).WillOnce(testing::Return(num));
     EXPECT_EQ(mock.foo(num), num);
+
+    num = 40;
+    EXPECT_CALL(mock, foo(num)).WillOnce(testing::Return(num));
+    EXPECT_EQ(mock.foo(num), num);
+
+    num = 50;
+    EXPECT_CALL(mock, foo(num)).WillOnce(testing::Return(num));
+    EXPECT_EQ(mock.foo(num), num);
 }
